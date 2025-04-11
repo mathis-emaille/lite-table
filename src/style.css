@@ -1,0 +1,658 @@
+/* ========= 1. CSS Variables ========= */
+:root {
+    --color-overlay-xs-static: hsla(0, 0%, 0%, 0.08);
+    --color-overlay-sm-static: hsla(0, 0%, 0%, 0.2);
+    --color-overlay-md-static: hsla(0, 0%, 0%, 0.3);
+    --color-overlay-lg-static: hsla(0, 0%, 0%, 0.4);
+    --color-white: #fff;
+    --color-g10: #333333;
+    --color-g20: #666666;
+    --color-g30: #999999;
+    --color-g40: #cccccc;
+    --color-g45: #eeeeee;
+    --color-g50: #f5f5f5;
+    --color-g60: #f9f9fb;
+    --color-g1: var(--color-g10);
+    --color-g2: var(--color-g20);
+    --color-g3: var(--color-g30);
+    --color-g4: var(--color-g40);
+    --color-g5: var(--color-g50);
+    --color-g6: var(--color-g60);
+    --color-overlay-xs: hsla(0, 0%, 0%, 0.08);
+    --color-overlay-sm: hsla(0, 0%, 0%, 0.2);
+    --color-blue: #007BFF;
+    --color-success: #398538;
+    --color-warning: #fa5c00;
+    --color-error: #e91b06;
+    --color-border: var(--color-g40);
+    --color-background: #ffffff;
+    --color-background-inverted: #0a0a0a;
+    --color-surface: #ffffff;
+    --color-surface-inverted: #161616;
+    --color-on-primary: #f5f5f5;
+    --color-on-secondary: #f5f5f5;
+    --color-on-background: var(--color-g10);
+    --color-on-surface-inverted: #f7f7f7;
+    --color-on-surface: var(--color-g10);
+    --primary: var(--color-blue);
+    --primary-rgb: 0, 123, 255;
+}
+
+/* ========= 2. Base Table Styles ========= */
+.lite-datatable {
+    width: 100%;
+}
+
+.lite-datatable-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: calc(100vh - 405px);
+    min-height: calc(100vh - 405px);
+    border: 1px solid var(--color-g40);
+    border-radius: 4px;
+    position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-g30) var(--color-g50);
+}
+
+/* Scrollbar styles */
+.lite-datatable-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.lite-datatable-container::-webkit-scrollbar-track {
+    background: var(--color-g50);
+    border-radius: 4px;
+}
+
+.lite-datatable-container::-webkit-scrollbar-thumb {
+    background: var(--color-g30);
+    border-radius: 4px;
+}
+
+.lite-datatable-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-g20);
+}
+
+.lite-datatable table {
+    width: 100%;
+    border-collapse: collapse;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-g40);
+    overflow: hidden;
+    height: auto;
+    min-width: 100%;
+}
+
+/* ========= 3. Header and Cell Styles ========= */
+/* Table header */
+.lite-datatable table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--color-g60);
+}
+
+.lite-datatable table thead th {
+    font-weight: 400;
+    font-size: 0.8125rem;
+    line-height: 1.125rem;
+    color: var(--color-g20);
+    padding: 4px 6px;
+    border-top: 1px solid var(--color-g40);
+    border-bottom: 2px solid var(--color-g40);
+    vertical-align: middle;
+    background: var(--color-g60);
+    font-weight: 500;
+    white-space: nowrap;
+    position: relative;
+    height: auto;
+    min-height: 32px;
+}
+
+/* Table cells */
+.lite-datatable table td {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.375rem;
+    color: var(--color-g10);
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--color-g45);
+    vertical-align: middle;
+    white-space: nowrap;
+    height: auto;
+    min-height: 24px;
+    line-height: 1.2;
+    width: 3%;
+}
+
+/* Column widths */
+.lite-datatable table th:nth-child(1),
+.lite-datatable table td:nth-child(1) {
+    text-align: center;
+}
+
+.lite-datatable table th:nth-child(2),
+.lite-datatable table td:nth-child(2) {
+    width: 5%;
+    min-width: 50px;
+}
+
+.lite-datatable table th:nth-child(3),
+.lite-datatable table td:nth-child(3) {
+    width: 5%;
+    min-width: 50px;
+}
+
+.lite-datatable table th:nth-child(4),
+.lite-datatable table td:nth-child(4) {
+    width: 10%;
+    min-width: 80px;
+}
+
+.lite-datatable table th:nth-child(5),
+.lite-datatable table td:nth-child(5) {
+    width: 10%;
+    min-width: 80px;
+}
+
+.lite-datatable table th:nth-child(6),
+.lite-datatable table td:nth-child(6) {
+    width: 10%;
+    min-width: 80px;
+}
+
+.lite-datatable table th:nth-child(7),
+.lite-datatable table td:nth-child(7) {
+    text-align: center;
+}
+
+.lite-datatable table td:not(:last-child),
+.lite-datatable table th:not(:last-child) {
+    border-right: 1px solid var(--color-g45);
+}
+
+/* ========= 4. Filters and Actions ========= */
+.lite-datatable-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: var(--color-surface);
+    border-radius: 6px;
+    border: 1px solid var(--color-g40);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    align-items: center;
+}
+
+.lite-datatable-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 180px;
+}
+
+.lite-datatable-filter label {
+    font-size: 0.75rem;
+    color: var(--color-g20);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: -2px;
+}
+
+.lite-datatable-filter input,
+.lite-datatable-filter select {
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--color-g40);
+    border-radius: 4px;
+    background: var(--color-surface);
+    color: var(--color-g10);
+    height: 32px;
+    font-size: 0.875rem;
+    max-width: 16rem;
+    transition: all 0.2s ease;
+}
+
+.lite-datatable-filter input:focus,
+.lite-datatable-filter select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.1);
+    outline: none;
+}
+
+.lite-datatable-filter input::placeholder {
+    color: var(--color-g30);
+}
+
+.lite-datatable-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.lite-datatable-action-btn {
+    padding: 4px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.lite-datatable-action-btn:hover {
+    background-color: var(--color-g50);
+    opacity: 1;
+}
+
+.lite-datatable-action-btn.edit svg {
+    fill: var(--primary);
+}
+
+.lite-datatable-action-btn.delete svg {
+    fill: var(--color-error);
+}
+
+.lite-datatable tbody tr:hover {
+    background: var(--color-g50);
+    transition: background-color 0.2s ease;
+}
+
+/* ========= 5. Pagination and Footer ========= */
+.lite-datatable-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--color-g60);
+    border: 1px solid var(--color-g40);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+}
+
+.lite-datatable-pagesize {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lite-datatable-pagesize select {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--color-g40);
+    border-radius: 4px;
+    background: var(--color-surface);
+    color: var(--color-g10);
+}
+
+.lite-datatable-pagination {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.lite-datatable-pagination button {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-g40);
+    border-radius: 4px;
+    background: var(--color-surface);
+    color: var(--color-g10);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lite-datatable-pagination button:hover:not(:disabled) {
+    background: var(--color-g50);
+    border-color: var(--color-blue);
+}
+
+.lite-datatable-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.lite-datatable-pagination button.active {
+    background: var(--color-blue);
+    color: var(--color-white);
+    border-color: var(--primary);
+}
+
+.lite-datatable-pagination button.active:hover {
+    background-color: var(--color-blue);
+}
+
+.lite-datatable-info {
+    color: var(--color-g20);
+    font-size: 0.875rem;
+}
+
+.lite-datatable-display-limit {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+.lite-datatable-display-limit select {
+    padding: 0.5rem;
+    border: 1px solid var(--color-g40);
+    border-radius: 6px;
+    background: var(--color-surface);
+    color: var(--color-g10);
+    min-width: 100px;
+}
+
+/* ========= 6. Utility Classes ========= */
+.lite-datatable-aright { text-align: right; }
+.lite-datatable-acenter { text-align: center; }
+.lite-datatable-aleft { text-align: left; }
+
+/* ========= 7. Media Queries ========= */
+@media screen and (max-width: 768px) {
+    .lite-datatable table {
+        font-size: 10px;
+    }
+
+    .lite-datatable table td,
+    .lite-datatable table th {
+        padding: 4px 2px;
+    }
+}
+
+@media screen and (max-height: 500px) {
+    .lite-datatable-container {
+        max-height: calc(100vh - 405px);
+        min-height: calc(100vh - 220px);
+    }
+
+    .lite-datatable-filters,
+    .lite-datatable-footer {
+        display: none;
+    }
+}
+
+@media screen and (max-height: 300px) {
+    .lite-datatable::before {
+        content: "Insufficient space to display the table. Please increase the window height.";
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--color-surface);
+        padding: 1rem;
+        border-radius: 4px;
+        border: 1px solid var(--color-g40);
+        color: var(--color-g10);
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 2;
+    }
+}
+
+@media screen and (max-height: 150px) {
+    section {
+        display: none !important;
+    }
+}
+
+/* ========= 8. Additional Styles ========= */
+.lite-datatable-title {
+    font-weight: 400;
+    font-size: 1.1875rem;
+    letter-spacing: -0.12px;
+    line-height: 2rem;
+    color: var(--color-g10);
+    text-align: center;
+    margin: 16px 0;
+}
+
+@media (max-width: 959px) {
+    .lite-datatable-title {
+        line-height: 1.5rem;
+    }
+}
+
+.bpce-checkbox,
+.lite-datatable table td {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.375rem;
+}
+
+@media (max-width: 959px) {
+    .bpce-checkbox,
+    .lite-datatable table td {
+        letter-spacing: -0.14px;
+    }
+}
+
+.lite-datatable table tfoot td {
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.375rem;
+}
+
+@media (max-width: 959px) {
+    .lite-datatable table tfoot td {
+        letter-spacing: -0.2px;
+    }
+}
+
+.lite-datatable .lite-datatable-icon-btn {
+    border: 0;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.bpce-checkbox-input,
+.lite-datatable .bpce-sr-only {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    outline: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+@keyframes shimmering {
+    0% {
+        transform: translate3d(-100%, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(75%, 0, 0);
+    }
+}
+
+/* ========= 9. Checkbox Styles ========= */
+.bpce-checkbox {
+    display: inline-block;
+    margin: 0 40px 8px 0;
+}
+
+.bpce-checkbox-label {
+    display: flex;
+    cursor: pointer;
+    color: var(--color-g10);
+}
+
+.bpce-checkbox-square {
+    position: relative;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--color-g20);
+    background-color: var(--color-surface);
+    border-radius: 3px;
+    margin-top: 3px;
+    margin-right: 8px;
+    transition: background-color 250ms ease;
+}
+
+.bpce-checkbox-icon {
+    position: absolute;
+    visibility: hidden;
+}
+
+.bpce-checkbox-icon path {
+    stroke: var(--color-white);
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 31.1127;
+    stroke-dashoffset: 31.1127;
+    transition: stroke-dashoffset 250ms ease 50ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bpce-checkbox-label:hover .bpce-checkbox-square {
+        background-color: var(--color-g60);
+        border-color: var(--primary);
+    }
+}
+
+body:not(.using-mouse) .bpce-checkbox-input:focus+.bpce-checkbox-label .bpce-checkbox-square {
+    box-shadow: 0 0 2px 3px #6ba1f8;
+}
+
+.bpce-checkbox-input:checked+.bpce-checkbox-label .bpce-checkbox-square {
+    border-width: 1px;
+    border-color: var(--primary);
+    background-color: var(--primary);
+}
+
+.bpce-checkbox-input:checked+.bpce-checkbox-label .bpce-checkbox-icon {
+    visibility: visible;
+}
+
+.bpce-checkbox-input:checked+.bpce-checkbox-label .bpce-checkbox-icon path {
+    stroke-dashoffset: 0;
+}
+
+.bpce-checkbox-input:disabled+.bpce-checkbox-label {
+    color: var(--color-g30);
+    cursor: default;
+    cursor: not-allowed;
+}
+
+.bpce-checkbox-input:disabled+.bpce-checkbox-label .bpce-checkbox-square {
+    border-color: var(--color-g30);
+    border-width: 2px;
+    background-color: var(--color-g50);
+}
+
+.bpce-checkbox-input:disabled+.bpce-checkbox-label .bpce-checkbox-icon path {
+    stroke: var(--color-g30);
+}
+
+/* ========= 10. Table Enhancements ========= */
+.lite-datatable table tbody:not(:last-child) tr:last-child td {
+    border-color: var(--color-g30);
+}
+
+.lite-datatable table thead th button.sort-button {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.lite-datatable table thead th button.sort-button:hover {
+    color: var(--primary);
+}
+
+.lite-datatable table thead th button.sort-button::after {
+    content: '⇕';
+    margin-left: 5px;
+    opacity: 0.3;
+}
+
+.lite-datatable table thead th button.sort-button.asc::after {
+    content: '↓';
+    opacity: 1;
+}
+
+.lite-datatable table thead th button.sort-button.desc::after {
+    content: '↑';
+    opacity: 1;
+}
+
+.sort-button.asc {
+    background-color: rgba(var(--primary-rgb), 0.1);
+}
+
+.sort-button.desc {
+    background-color: rgba(var(--primary-rgb), 0.05);
+}
+
+/* Striped rows */
+.lite-datatable-striped table tbody tr:nth-child(even) {
+    background-color: var(--color-g50);
+}
+
+/* Icon columns */
+.lite-datatable .lite-datatable-icon {
+    padding: 0 0 0 8px;
+    text-align: right;
+}
+
+.lite-datatable .lite-datatable-icon-btn {
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.lite-datatable .lite-datatable-icon-btn:hover {
+    background-color: var(--color-g50);
+}
+
+.lite-datatable .lite-datatable-icon svg {
+    fill: var(--color-g10);
+    transition: fill 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .lite-datatable .lite-datatable-icon-btn:hover svg {
+        fill: var(--primary);
+    }
+}
+
+/* Checkbox column */
+.lite-datatable .lite-datatable-checkbox {
+    padding: 0;
+    width: 40px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.lite-datatable .lite-datatable-checkbox .bpce-checkbox {
+    margin: 0;
+}
+
+.lite-datatable .lite-datatable-checkbox .bpce-checkbox-label {
+    padding: 8px;
+    justify-content: center;
+}
+
+.lite-datatable .lite-datatable-checkbox .bpce-checkbox-square {
+    margin: 0;
+}

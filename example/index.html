@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LiteTable Demo</title>
+    <link rel="stylesheet" href="../src/style.css" />
+    <style>
+        :root {
+            --primary: var(--color-blue);
+            --primary-rgb: 0, 123, 255;
+        }
+        body {
+            padding: 2rem;
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--color-g10);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .slider-container {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            background: var(--color-surface);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        #tableSizeSlider {
+            flex-grow: 1;
+        }
+        .demo-header {
+            margin: 1rem 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .demo-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        .demo-button {
+            padding: 0.5rem 1rem;
+            background: var(--color-blue);
+            color: var(--color-white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .demo-button:hover {
+            background: #0056b3;
+        }
+        .demo-button.secondary {
+            background: var(--color-g50);
+            color: var(--color-g10);
+            border: 1px solid var(--color-g40);
+        }
+        .demo-button.secondary:hover {
+            background: var(--color-g45);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="slider-container">
+            <label for="tableSizeSlider">Number of rows:</label>
+            <span id="tableSizeValue">10</span>
+            <input type="range" id="tableSizeSlider" min="100" max="20000" step="100" value="100">
+        </div>
+
+        <div class="demo-header">
+            <h1 class="lite-datatable-title">LiteTable Demo</h1>
+            <div class="demo-buttons">
+                <button class="demo-button secondary" id="toggleStriped">Toggle Striped</button>
+                <button class="demo-button" id="regenerateData">Regenerate</button>
+            </div>
+        </div>
+
+        <div class="lite-datatable">
+            <div class="lite-datatable-filters"></div>
+            <div class="lite-datatable-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th class="filtered">Date</th>
+                            <th class="filtered">Status</th>
+                            <th class="filtered">Type</th>
+                            <th class="lite-datatable-aright">Montant</th>
+                            <th>Description</th>
+                            <th class="lite-datatable-icon">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>15/03/2024</td>
+                            <td>Active</td>
+                            <td>Invoice</td>
+                            <td class="lite-datatable-aright">1250.00</td>
+                            <td>March services</td>
+                            <td class="lite-datatable-icon">
+                                <button class="lite-datatable-icon-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24">
+                                        <path d="M3,17.25V21h3.75L17.81,9.94l-3.75-3.75L3,17.25z M20.71,7.04c0.39-0.39,0.39-1.02,0-1.41l-2.34-2.34c-0.39-0.39-1.02-0.39-1.41,0l-1.83,1.83l3.75,3.75L20.71,7.04z" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Les autres lignes seront générées dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="lite-datatable-footer">
+                <div class="tableInfo"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initTables } from '../src/LiteTable.js';
+
+        /**
+         * Génère des données factices pour le tableau.
+         * @param {number} count - Nombre de lignes à générer.
+         */
+        async function generateDummyData(count) {
+            const statuses = ['Active', 'Pending', 'Completed', 'Cancelled'];
+            const types = ['Invoice', 'Quote', 'Order'];
+            const descriptions = [
+                'Web Development', 'Consulting', 'Hardware Purchase',
+                'Software License', 'Support Services', 'Training', 'Maintenance'
+            ];
+            let data = [];
+            for (let i = 1; i <= count; i++) {
+                const date = new Date(2025, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1);
+                const formattedDate = date.toLocaleDateString('en-GB');
+                data.push(`
+                    <tr>
+                        <td>${i}</td>
+                        <td>${formattedDate}</td>
+                        <td>${statuses[Math.floor(Math.random() * statuses.length)]}</td>
+                        <td>${types[Math.floor(Math.random() * types.length)]}</td>
+                        <td class="lite-datatable-aright">${(Math.random() * 5000 + 100).toFixed(2)}</td>
+                        <td>${descriptions[Math.floor(Math.random() * descriptions.length)]}</td>
+                        <td class="lite-datatable-icon">
+                            <button class="lite-datatable-icon-btn">
+                                <svg width="18" height="18" viewBox="0 0 24 24">
+                                    <path d="M3,17.25V21h3.75L17.81,9.94l-3.75-3.75L3,17.25z M20.71,7.04c0.39-0.39,0.39-1.02,0-1.41l-2.34-2.34c-0.39-0.39-1.02-0.39-1.41,0l-1.83,1.83l3.75,3.75L20.71,7.04z" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                `);
+            }
+            return data.join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const slider = document.getElementById('tableSizeSlider');
+            const valueDisplay = document.getElementById('tableSizeValue');
+            const tbody = document.querySelector('.lite-datatable table tbody');
+            const toggleStriped = document.getElementById('toggleStriped');
+            const regenerateBtn = document.getElementById('regenerateData');
+            const tableContainer = document.querySelector('.lite-datatable');
+            const selectAll = document.getElementById('selectAll');
+
+            /**
+             * Met à jour le tableau en fonction de la valeur du curseur.
+             */
+            async function updateTable() {
+                valueDisplay.textContent = slider.value;
+                generateDummyData(slider.value).then((data) => {
+                    tbody.innerHTML = data;
+                    initTables(); // Réinitialiser les tables après avoir mis à jour les données
+                    setupCheckboxes();
+                });
+            }
+
+            /**
+             * Configure les cases à cocher pour la sélection de lignes.
+             */
+            function setupCheckboxes() {
+                selectAll.addEventListener('change', () => {
+                    const checkboxes = document.querySelectorAll('.lite-datatable tbody .bpce-checkbox-input');
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = selectAll.checked;
+                    });
+                });
+            }
+
+            // Événements
+            slider.addEventListener('input', updateTable);
+            
+            toggleStriped.addEventListener('click', () => {
+                tableContainer.classList.toggle('lite-datatable-striped');
+            });
+            
+            regenerateBtn.addEventListener('click', updateTable);
+            
+            // Initialiser le tableau au chargement de la page
+            updateTable();
+        });
+    </script>
+</body>
+
+</html>
