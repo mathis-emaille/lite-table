@@ -3,10 +3,10 @@ const { LiteTableManager } = require('../src/LiteTable');
 describe('LiteTableManager', () => {
     const createTableContainer = () => {
         const container = document.createElement('div');
-        container.className = 'lite-datatable';
+        container.className = 'lite-table';
         container.innerHTML = `
-      <div class="lite-datatable-filters"></div>
-      <div class="lite-datatable-container">
+      <div class="lite-table-filters"></div>
+      <div class="lite-table-container">
         <table>
           <thead>
             <tr>
@@ -42,7 +42,7 @@ describe('LiteTableManager', () => {
           </tbody>
         </table>
       </div>
-      <div class="lite-datatable-footer">
+      <div class="lite-table-footer">
         <div class="tableInfo"></div>
       </div>
     `;
@@ -84,7 +84,7 @@ describe('LiteTableManager', () => {
 
     test('should throw error when table is missing', () => {
         const emptyContainer = document.createElement('div');
-        emptyContainer.className = 'lite-datatable';
+        emptyContainer.className = 'lite-table';
 
         expect(() => {
             new LiteTableManager(emptyContainer);
@@ -100,7 +100,7 @@ describe('LiteTableManager', () => {
         tableManager = new LiteTableManager(container);
         tableManager.destroy();
 
-        expect(container.querySelector('.lite-datatable-pagination')).toBeNull();
+        expect(container.querySelector('.lite-table-pagination')).toBeNull();
         expect(container.querySelector('.sort-button')).toBeNull();
         expect(container._tableManager).toBeUndefined();
     });

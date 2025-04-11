@@ -75,16 +75,16 @@
         </div>
 
         <div class="demo-header">
-            <h1 class="lite-datatable-title">LiteTable Demo</h1>
+            <h1 class="lite-table-title">LiteTable Demo</h1>
             <div class="demo-buttons">
                 <button class="demo-button secondary" id="toggleStriped">Toggle Striped</button>
                 <button class="demo-button" id="regenerateData">Regenerate</button>
             </div>
         </div>
 
-        <div class="lite-datatable">
-            <div class="lite-datatable-filters"></div>
-            <div class="lite-datatable-container">
+        <div class="lite-table">
+            <div class="lite-table-filters"></div>
+            <div class="lite-table-container">
                 <table>
                     <thead>
                         <tr>
@@ -92,9 +92,9 @@
                             <th class="filtered">Date</th>
                             <th class="filtered">Status</th>
                             <th class="filtered">Type</th>
-                            <th class="lite-datatable-aright">Montant</th>
+                            <th class="lite-table-aright">Montant</th>
                             <th>Description</th>
-                            <th class="lite-datatable-icon">Actions</th>
+                            <th class="lite-table-icon">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,10 +103,10 @@
                             <td>15/03/2024</td>
                             <td>Active</td>
                             <td>Invoice</td>
-                            <td class="lite-datatable-aright">1250.00</td>
+                            <td class="lite-table-aright">1250.00</td>
                             <td>March services</td>
-                            <td class="lite-datatable-icon">
-                                <button class="lite-datatable-icon-btn">
+                            <td class="lite-table-icon">
+                                <button class="lite-table-icon-btn">
                                     <svg width="18" height="18" viewBox="0 0 24 24">
                                         <path d="M3,17.25V21h3.75L17.81,9.94l-3.75-3.75L3,17.25z M20.71,7.04c0.39-0.39,0.39-1.02,0-1.41l-2.34-2.34c-0.39-0.39-1.02-0.39-1.41,0l-1.83,1.83l3.75,3.75L20.71,7.04z" />
                                     </svg>
@@ -117,7 +117,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="lite-datatable-footer">
+            <div class="lite-table-footer">
                 <div class="tableInfo"></div>
             </div>
         </div>
@@ -147,10 +147,10 @@
                         <td>${formattedDate}</td>
                         <td>${statuses[Math.floor(Math.random() * statuses.length)]}</td>
                         <td>${types[Math.floor(Math.random() * types.length)]}</td>
-                        <td class="lite-datatable-aright">${(Math.random() * 5000 + 100).toFixed(2)}</td>
+                        <td class="lite-table-aright">${(Math.random() * 5000 + 100).toFixed(2)}</td>
                         <td>${descriptions[Math.floor(Math.random() * descriptions.length)]}</td>
-                        <td class="lite-datatable-icon">
-                            <button class="lite-datatable-icon-btn">
+                        <td class="lite-table-icon">
+                            <button class="lite-table-icon-btn">
                                 <svg width="18" height="18" viewBox="0 0 24 24">
                                     <path d="M3,17.25V21h3.75L17.81,9.94l-3.75-3.75L3,17.25z M20.71,7.04c0.39-0.39,0.39-1.02,0-1.41l-2.34-2.34c-0.39-0.39-1.02-0.39-1.41,0l-1.83,1.83l3.75,3.75L20.71,7.04z" />
                                 </svg>
@@ -165,10 +165,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const slider = document.getElementById('tableSizeSlider');
             const valueDisplay = document.getElementById('tableSizeValue');
-            const tbody = document.querySelector('.lite-datatable table tbody');
+            const tbody = document.querySelector('.lite-table table tbody');
             const toggleStriped = document.getElementById('toggleStriped');
             const regenerateBtn = document.getElementById('regenerateData');
-            const tableContainer = document.querySelector('.lite-datatable');
+            const tableContainer = document.querySelector('.lite-table');
             const selectAll = document.getElementById('selectAll');
 
             /**
@@ -188,7 +188,7 @@
              */
             function setupCheckboxes() {
                 selectAll.addEventListener('change', () => {
-                    const checkboxes = document.querySelectorAll('.lite-datatable tbody .bpce-checkbox-input');
+                    const checkboxes = document.querySelectorAll('.lite-table tbody .bpce-checkbox-input');
                     checkboxes.forEach(checkbox => {
                         checkbox.checked = selectAll.checked;
                     });
@@ -199,7 +199,7 @@
             slider.addEventListener('input', updateTable);
             
             toggleStriped.addEventListener('click', () => {
-                tableContainer.classList.toggle('lite-datatable-striped');
+                tableContainer.classList.toggle('lite-table-striped');
             });
             
             regenerateBtn.addEventListener('click', updateTable);

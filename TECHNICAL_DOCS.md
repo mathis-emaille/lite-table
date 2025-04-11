@@ -37,12 +37,12 @@ The library follows these architectural principles:
 LiteTable expects the following structure:
 
 ```html
-<div class="lite-datatable">
-    <div class="lite-datatable-filters"></div>
-    <div class="lite-datatable-container">
+<div class="lite-table">
+    <div class="lite-table-filters"></div>
+    <div class="lite-table-container">
         <table>...</table>
     </div>
-    <div class="lite-datatable-footer">
+    <div class="lite-table-footer">
         <div class="tableInfo"></div>
     </div>
 </div>
@@ -97,7 +97,7 @@ constructor(tableContainer)
 Initializes a new instance of LiteTableManager for the provided table container.
 
 **Parameters**:
-- `tableContainer`: HTMLElement - The container with the 'lite-datatable' class
+- `tableContainer`: HTMLElement - The container with the 'lite-table' class
 
 **Creates**:
 - Row cache
@@ -194,7 +194,7 @@ Returns the number of columns in the table.
 function initTables()
 ```
 
-Initializes all elements with the `lite-datatable` class on the page.
+Initializes all elements with the `lite-table` class on the page.
 
 #### LiteTableManager
 

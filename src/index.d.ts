@@ -4,7 +4,7 @@
 export class LiteTableManager {
     /**
      * Creates an instance of LiteTableManager
-     * @param tableContainer - Table container with the class 'lite-datatable'
+     * @param tableContainer - Table container with the class 'lite-table'
      */
     constructor(tableContainer: HTMLElement);
 

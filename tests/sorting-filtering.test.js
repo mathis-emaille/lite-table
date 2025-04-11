@@ -3,10 +3,10 @@ const { LiteTableManager } = require('../src/LiteTable');
 describe('LiteTable Sorting and Filtering', () => {
     const createTableContainer = () => {
         const container = document.createElement('div');
-        container.className = 'lite-datatable';
+        container.className = 'lite-table';
         container.innerHTML = `
-      <div class="lite-datatable-filters"></div>
-      <div class="lite-datatable-container">
+      <div class="lite-table-filters"></div>
+      <div class="lite-table-container">
         <table>
           <thead>
             <tr>
@@ -50,7 +50,7 @@ describe('LiteTable Sorting and Filtering', () => {
           </tbody>
         </table>
       </div>
-      <div class="lite-datatable-footer">
+      <div class="lite-table-footer">
         <div class="tableInfo"></div>
       </div>
     `;

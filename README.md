@@ -27,9 +27,9 @@ npm install lite-table
 ## Basic Usage
 
 ```html
-<div class="lite-datatable">
-    <div class="lite-datatable-filters"></div>
-    <div class="lite-datatable-container">
+<div class="lite-table">
+    <div class="lite-table-filters"></div>
+    <div class="lite-table-container">
         <table>
             <thead>
                 <tr>
@@ -45,7 +45,7 @@ npm install lite-table
             </tbody>
         </table>
     </div>
-    <div class="lite-datatable-footer">
+    <div class="lite-table-footer">
         <div class="tableInfo"></div>
     </div>
 </div>
@@ -66,12 +66,12 @@ npm install lite-table
 
 ### HTML Structure
 
-- Add `lite-datatable` class to your table container
+- Add `lite-table` class to your table container
 - Add `filtered` class to columns that need filter dropdowns
 - Add `date-range` class for columns that need date range pickers (from/to)
-- Include `lite-datatable-filters` div for filter controls
-- Include `lite-datatable-container` div for better table scrolling
-- Include `lite-datatable-footer` div with `tableInfo` div for pagination
+- Include `lite-table-filters` div for filter controls
+- Include `lite-table-container` div for better table scrolling
+- Include `lite-table-footer` div with `tableInfo` div for pagination
 
 ### Supported Column Types
 
@@ -91,7 +91,7 @@ const table = new LiteTableManager(container);
 
 #### Parameters:
 
-- `container` (HTMLElement): The table container element with 'lite-datatable' class
+- `container` (HTMLElement): The table container element with 'lite-table' class
 
 ### Methods
 
@@ -114,17 +114,17 @@ If you prefer to create your own styles, here are the main CSS classes to target
 
 ```css
 /* Main container */
-.lite-datatable { }
-.lite-datatable-container { }
+.lite-table { }
+.lite-table-container { }
 
 /* Filter section */
-.lite-datatable-filters { }
-.lite-datatable-filter { }
+.lite-table-filters { }
+.lite-table-filter { }
 .lite-filter { }
 
 /* Table controls */
-.lite-datatable-display-limit { }
-.lite-datatable-pagination { }
+.lite-table-display-limit { }
+.lite-table-pagination { }
 .page-number { }
 .page-number.active { }
 
@@ -134,7 +134,7 @@ If you prefer to create your own styles, here are the main CSS classes to target
 .sort-button.desc { }
 
 /* Footer */
-.lite-datatable-footer { }
+.lite-table-footer { }
 .tableInfo { }
 ```
 

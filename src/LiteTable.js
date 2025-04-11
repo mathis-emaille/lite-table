@@ -98,7 +98,7 @@ function parseDate(dateStr) {
 class LiteTableManager {
     /**
      * Creates a LiteTableManager instance
-     * @param {HTMLElement} tableContainer - Table container with the 'lite-datatable' class
+     * @param {HTMLElement} tableContainer - Table container with the 'lite-table' class
      * @throws {Error} If the container or table is missing
      */
     constructor(tableContainer) {
@@ -193,11 +193,11 @@ class LiteTableManager {
 
     /** @private */
     initPagination() {
-        const footer = this.container.querySelector('.lite-datatable-footer');
+        const footer = this.container.querySelector('.lite-table-footer');
         if (!footer) return;
 
         const paginationDiv = document.createElement('div');
-        paginationDiv.className = 'lite-datatable-pagination';
+        paginationDiv.className = 'lite-table-pagination';
         footer.appendChild(paginationDiv);
 
         this.updatePagination();
@@ -207,12 +207,12 @@ class LiteTableManager {
     initDisplayLimit() {
         if (!this.container.querySelector('.displayLimit')) {
             const displayLimitWrapper = document.createElement('div');
-            displayLimitWrapper.className = 'lite-datatable-display-limit';
+            displayLimitWrapper.className = 'lite-table-display-limit';
             const displayLimitLabel = document.createElement('label');
             displayLimitLabel.textContent = 'Show';
             const displayLimitSelect = document.createElement('select');
             displayLimitSelect.className = 'displayLimit';
-            const filterContainer = this.container.querySelector('.lite-datatable-filters');
+            const filterContainer = this.container.querySelector('.lite-table-filters');
             if (!filterContainer) return;
 
             const displayLimitOptions = [
@@ -262,7 +262,7 @@ class LiteTableManager {
 
     /** @private */
     initGlobalFiltersButtons() {
-        const filterContainer = this.container.querySelector('.lite-datatable-filters');
+        const filterContainer = this.container.querySelector('.lite-table-filters');
         if (!filterContainer) return;
 
         const headerCells = this.table.querySelectorAll('thead tr:last-child th');
@@ -296,7 +296,7 @@ class LiteTableManager {
     /** @private */
     createDateRangeDropdown(th, filterContainer, colIndex) {
         const wrapper = document.createElement('div');
-        wrapper.className = 'lite-datatable-filter';
+        wrapper.className = 'lite-table-filter';
         const label = document.createElement('label');
         label.innerHTML = `${th.innerText} <span style="font-weight: lighter;">(from / to)</span>`;
         const fromInput = document.createElement('input');
@@ -326,7 +326,7 @@ class LiteTableManager {
     /** @private */
     createDateDropdown(th, filterContainer, colIndex) {
         const wrapper = document.createElement('div');
-        wrapper.className = 'lite-datatable-filter';
+        wrapper.className = 'lite-table-filter';
         const label = document.createElement('label');
         label.textContent = th.innerText;
         const select = document.createElement('select');
@@ -368,7 +368,7 @@ class LiteTableManager {
         });
 
         const wrapper = document.createElement('div');
-        wrapper.className = 'lite-datatable-filter';
+        wrapper.className = 'lite-table-filter';
         const label = document.createElement('label');
         label.textContent = th.innerText;
         const select = document.createElement('select');
@@ -399,7 +399,7 @@ class LiteTableManager {
 
     /** @private */
     updatePagination() {
-        const paginationDiv = this.container.querySelector('.lite-datatable-pagination');
+        const paginationDiv = this.container.querySelector('.lite-table-pagination');
         if (!paginationDiv) return;
 
         const createButton = (text, pageIndex, isDisabled = false) => {
@@ -644,12 +644,12 @@ class LiteTableManager {
             return;
         }
 
-        const paginationDiv = this.container.querySelector('.lite-datatable-pagination');
+        const paginationDiv = this.container.querySelector('.lite-table-pagination');
         if (paginationDiv) {
             paginationDiv.remove();
         }
 
-        const displayLimitWrapper = this.container.querySelector('.lite-datatable-display-limit');
+        const displayLimitWrapper = this.container.querySelector('.lite-table-display-limit');
         if (displayLimitWrapper) {
             displayLimitWrapper.remove();
         }
@@ -662,7 +662,7 @@ class LiteTableManager {
             }
         });
 
-        const filters = this.container.querySelectorAll('.lite-datatable-filter');
+        const filters = this.container.querySelectorAll('.lite-table-filter');
         filters.forEach(filter => filter.remove());
 
         this.allRows.sort((a, b) => {
@@ -688,7 +688,7 @@ class LiteTableManager {
  * Initializes all Table instances on the page
  */
 function initTables() {
-    document.querySelectorAll('.lite-datatable').forEach(container => {
+    document.querySelectorAll('.lite-table').forEach(container => {
         new LiteTableManager(container);
     });
 }
