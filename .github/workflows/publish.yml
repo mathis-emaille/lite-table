@@ -38,7 +38,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          VERSION=${GITHUB_REF#refs/tags/}
+          VERSION="${GITHUB_REF_NAME}"
           npm version "$VERSION" --no-git-tag-version
 
       - name: Version (manual trigger)
