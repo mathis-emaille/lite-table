@@ -6,19 +6,23 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to publish (patch, minor, major, or specific version)'
+        description: "Version to publish (patch, minor, major, or specific version)"
         required: true
-        default: 'patch'
+        default: "patch"
+
+permissions:
+  contents: read
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20.0'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: npm ci
@@ -29,23 +33,23 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Version and publish (release trigger)
+      - name: Version (release trigger)
         if: github.event_name == 'release'
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           VERSION=${GITHUB_REF#refs/tags/}
-          npm version $VERSION --no-git-tag-version
-          npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          npm version "$VERSION" --no-git-tag-version
 
-      - name: Version and publish (manual trigger)
+      - name: Version (manual trigger)
         if: github.event_name == 'workflow_dispatch'
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          npm version ${{ github.event.inputs.version }} --no-git-tag-version
-          npm publish
+          npm version "${{ github.event.inputs.version }}" --no-git-tag-version
+
+      - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm publish --provenance --access public
